@@ -10,10 +10,10 @@
 #'   A character string or a connection that R supports specifying the
 #'   Stan model specification in Stan's modeling language.
 #' @param full_model
-#'   If provided, an object of class 'stanfit' that makes it unnecessary
-#'   to pass 'file' or 'local_file'
+#'   If provided, an object of class \code{"stanfit"} that makes it unnecessary
+#'   to pass \code{file} or \code{local_file}
 #' @param data
-#'   A named ‘list’ or ‘environment’ providing the data for the model
+#'   A named \code{list} or \code{environment} providing the data for the model
 #'   or a character vector for all the names of objects used as data.
 #'   See \code{\link[rstan]{stan}} for more details.
 #' @param method
@@ -38,15 +38,15 @@
 #' @param seed
 #'   The seed, a positive integer, for random number generation of
 #'   Stan. The default is generated from 1 to the maximum integer
-#'   supported by R so fixing the seed of R's random number generator
+#'   supported by \code{R} so fixing the seed of \code{R}'s random number generator
 #'   can essentially fix the seed of Stan.  When multiple chains are
 #'   used, only one seed is needed, with other chains' seeds being
 #'   generated from the first chain's seed to prevent dependency among
 #'   the random number streams for the chains. When a seed is
-#'   specified by a number, ‘as.integer’ will be applied to it.  If
-#'   ‘as.integer’ produces ‘NA’, the seed is generated randomly.  We
+#'   specified by a number, \code{as.integer} will be applied to it.  If
+#'   \code{as.integer} produces \code{NA}, the seed is generated randomly.  We
 #'   can also specify a seed using a character string of digits, such
-#'   as ‘"12345"’, which is converted to integer.
+#'   as \code{"12345"}, which is converted to integer.
 #'
 #' @return
 #' An object of reference class \code{"gmo"}. It is a list containing
@@ -54,7 +54,7 @@
 #' \item{par}{a vector of optimized parameters}
 #' \item{cov}{estimated covariance matrix at \code{par}}
 #' \item{sims}{\code{draws * inner_iter} many samples from the last
-#'     approximation to the conditional posterior, p(alpha | y, phi)}
+#'     approximation to the conditional posterior, \code{p(alpha | y, phi)}}
 #'
 #' @import methods
 #' @importFrom rstan stan optimizing vb sampling constrain_pars log_prob grad_log_prob stan_model get_stanmodel
