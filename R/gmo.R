@@ -247,7 +247,7 @@ GMO <- setRefClass("gmo",
       if (method == "laplace") {
         if (is.na(cond_iter)) {
           .cond_infer <<- function(data) {
-            sink(file="/dev/null", type=c("output", "message"))
+            sink(file=tempfile(), type=c("output", "message"))
             fit <- optimizing(local_model, data=data,
                               seed=seed, init=alpha,
                               as_vector=FALSE,
@@ -258,7 +258,7 @@ GMO <- setRefClass("gmo",
           }
         } else {
           .cond_infer <<- function(data) {
-            sink(file="/dev/null", type=c("output", "message"))
+            sink(file=tempfile(), type=c("output", "message"))
             fit <- optimizing(local_model, data=data,
                               seed=seed, init=alpha,
                               as_vector=FALSE,
@@ -286,7 +286,7 @@ GMO <- setRefClass("gmo",
       } else if (method =="vb") {
         if (is.na(cond_iter)) {
           .cond_infer <<- function(data) {
-            sink(file="/dev/null", type=c("output", "message"))
+            sink(file=tempfile(), type=c("output", "message"))
             g_alpha <<- vb(local_model, data=data,
                            seed=seed, init=alpha,
                            output_samples=inner_iter*draws)
@@ -296,7 +296,7 @@ GMO <- setRefClass("gmo",
           }
         } else {
           .cond_infer <<- function(data) {
-            sink(file="/dev/null", type=c("output", "message"))
+            sink(file=tempfile(), type=c("output", "message"))
             g_alpha <<- vb(local_model, data=data,
                            seed=seed, init=alpha,
                            output_samples=inner_iter*draws,
@@ -324,7 +324,7 @@ GMO <- setRefClass("gmo",
       } else if (method == "sampling") {
         .cond_infer <<- function(data) {
         # For sampling, cond_iter is always equal to 2*inner_iter*draws.
-          sink(file="/dev/null", type=c("output", "message"))
+          sink(file=tempfile(), type=c("output", "message"))
           g_alpha <<- sampling(local_model, data=data,
                                iter=2*inner_iter*draws, chains=1,
                                seed=seed, init=alpha)
@@ -417,7 +417,7 @@ GMO <- setRefClass("gmo",
     },
     .log_p_laplace = function(alpha_sims, m, g_flag=TRUE) {
       grad_log_p_sims <- array(NA, c(draws, num_par))
-      sink(file="/dev/null")
+      sink(file=tempfile())
       # TODO
       # This is the main bottleneck in the code:
       #
@@ -469,7 +469,7 @@ GMO <- setRefClass("gmo",
                                           rep(0, ncol(alpha_sims))))[[1]]
       grad_log_p_sims <- array(NA, c(draws, num_par))
       log_p_sims <- rep(NA, draws)
-      sink(file="/dev/null")
+      sink(file=tempfile())
       for (s in 1:draws) {
         grad_log_p_sims[s, ] <- 2*grad_log_prob(full_model,
                                           c(par_const, alpha_sims[s, ]),
