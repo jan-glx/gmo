@@ -379,7 +379,7 @@ GMO <- setRefClass("gmo",
       diagnostic <- Diagnostic$new(tol)
       opt <- Opt$new(eta)
       for (tee in 1:iter) {
-        print(sprintf("Iteration: %s", tee))
+        cat("Iteration: ", tee, "\n", sep="")
         print(par)
 
         if (two_models) .cond_infer(c(data, list(phi=par)))
@@ -392,15 +392,15 @@ GMO <- setRefClass("gmo",
 
         flags <- diagnostic$check_converge(par, log_p$fn, log_p$grad)
         if (any(flags)) {
-          print("Optimization terminated normally:")
-          print(.get_code_string(flags))
+          cat("Optimization terminated normally:")
+          cat(.get_code_string(flags))
           eval_iter <<- tee
           cov <<- est_covariance(par)
           sims <<- .collect_alpha_sims()
           return()
         }
       }
-      print("Maximum number of iterations hit, may not be at an optima")
+      cat("Maximum number of iterations hit, may not be at an optima")
       eval_iter <<- iter
       cov <<- est_covariance(par)
       sims <<- .collect_alpha_sims()
